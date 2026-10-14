@@ -23,17 +23,12 @@ export function Transport({ playing, bpm, mode, onPlay, onStop, onBpm, onMode, o
         <button
           type="button"
           className={`tbtn icon${playing ? ' is-on' : ''}`}
-          onClick={onPlay}
+          onClick={playing ? onStop : onPlay}
           disabled={!seq}
-          aria-label="Play"
+          aria-label={playing ? 'Stop' : 'Play'}
         >
           <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M7 4.5v15l12-7.5z" />
-          </svg>
-        </button>
-        <button type="button" className="tbtn icon" onClick={onStop} disabled={!seq} aria-label="Stop">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <rect x="6" y="6" width="12" height="12" />
+            {playing ? <rect x="6" y="6" width="12" height="12" /> : <path d="M7 4.5v15l12-7.5z" />}
           </svg>
         </button>
 
