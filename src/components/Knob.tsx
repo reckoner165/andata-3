@@ -93,7 +93,8 @@ export function Knob({ value, min, max, defaultValue, onChange, label, tick }: P
       onPointerCancel={end}
       onKeyDown={onKeyDown}
     >
-      <svg viewBox="0 0 64 64" aria-hidden="true">
+      {/* Cropped to the outer edge of the track so the knob is flush with the page gutters. */}
+      <svg viewBox="3.5 3.5 57 57" aria-hidden="true">
         <path className="knob-track" d={arc(32, 32, 27, START, START + SWEEP)} />
         {norm > 0.001 && <path className="knob-value" d={arc(32, 32, 27, START, angle)} />}
         <circle className="knob-body" cx="32" cy="32" r="20" />
