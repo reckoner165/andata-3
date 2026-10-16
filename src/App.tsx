@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { ExclamationTriangleIcon } from '@radix-ui/react-icons'
 import { Switch } from './components/Switch'
 import { StepCell } from './components/StepCell'
 import { Transport } from './components/Transport'
@@ -17,18 +18,27 @@ export default function App() {
   }
 
   let hint = ''
-  if (hapticsOn && !haptics.canVibrate) hint = 'This browser plays taps only — durations need Android'
-  else if (hapticsOn && seq.mode === 'tap') hint = 'Tap mode — press a step to feel it'
+  if (hapticsOn && !haptics.canVibrate) hint = 'This browser plays taps only. Durations need Android.'
+  else if (hapticsOn && seq.mode === 'tap') hint = 'Tap mode. Press a step to feel it.'
 
   return (
     <div className="app">
+      {haptics.isIOS && (
+        <div className="banner" role="alert">
+          <ExclamationTriangleIcon className="banner-icon" aria-hidden="true" />
+          Haptics are limited on iPhone and iPad. This may not work.
+        </div>
+      )}
       <header className="header">
         <div className="brand">
           <h1 className="logo">ANDATA-3</h1>
           <p className="tagline">Haptics Sequencer</p>
         </div>
         <label className="enable">
-          <span className="caption">{hapticsOn ? 'On' : 'Off'}</span>
+          <span className="enable-text">
+            <span className="caption">{hapticsOn ? 'On' : 'Off'}</span>
+            {haptics.isDesktop && <span className="enable-note">Requires haptics hardware. Won't work on desktop.</span>}
+          </span>
           <Switch on={hapticsOn} onToggle={toggleHaptics} label="Enable haptics" size="lg" attention={!hapticsOn} />
         </label>
       </header>

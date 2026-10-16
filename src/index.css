@@ -85,13 +85,14 @@ button:disabled {
 /* ---------- Layout ---------- */
 
 .app {
+  --pad-top: calc(env(safe-area-inset-top) + clamp(14px, 4dvh, 36px));
   height: 100dvh;
   overflow: hidden;
   max-width: 820px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  padding: calc(env(safe-area-inset-top) + clamp(14px, 4dvh, 36px)) calc(env(safe-area-inset-right) + var(--gutter)) 0
+  padding: var(--pad-top) calc(env(safe-area-inset-right) + var(--gutter)) 0
     calc(env(safe-area-inset-left) + var(--gutter));
 }
 
@@ -124,6 +125,45 @@ button:disabled {
   align-items: center;
   gap: 10px;
   cursor: pointer;
+}
+
+.enable-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  text-align: right;
+}
+
+.enable-note {
+  max-width: 150px;
+  font-size: 10px;
+  line-height: 1.35;
+  color: var(--muted);
+}
+
+.banner {
+  flex-shrink: 0;
+  /* Full-bleed strip above the header, cancelling the page padding. */
+  margin: calc(-1 * var(--pad-top)) calc(-1 * var(--gutter)) 16px;
+  padding: calc(env(safe-area-inset-top) + 9px) var(--gutter) 9px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-wrap: balance;
+  text-align: center;
+  /* Knockout: black text on white, screened over the page, so the letters
+     show the dark powder-coat surface through a white strip. */
+  background: #fff;
+  color: #000;
+  mix-blend-mode: screen;
+}
+
+.banner-icon {
+  width: 14px;
+  height: 14px;
+  margin-right: 6px;
+  vertical-align: -2px;
 }
 
 .enable .caption {

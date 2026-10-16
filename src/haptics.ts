@@ -7,6 +7,13 @@
 
 export const canVibrate = typeof navigator !== 'undefined' && 'vibrate' in navigator
 
+const ua = typeof navigator !== 'undefined' ? navigator.userAgent : ''
+// iPadOS reports itself as a Mac, so also check for a touch screen.
+export const isIOS =
+  /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && typeof navigator !== 'undefined' && navigator.maxTouchPoints > 1)
+// Desktop browsers may expose navigator.vibrate but have no motor to drive.
+export const isDesktop = !isIOS && !/Android|Mobi/i.test(ua)
+
 let enabled = false
 let iosLabel: HTMLLabelElement | null = null
 
